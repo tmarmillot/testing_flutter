@@ -20,8 +20,11 @@ jobs:
         run: |
           git config user.name 'Bernard Release Bot'
           git config user.email 'tmarmillot@users.noreply.github.com'
-           git log --pretty="- %s" >> CHANGELOG.md
-           ##${{steps.release-version.outputs.result}} >> CHANGELOG.md
+          cp CHANGELOG.md  changelog.tmp
+          echo "#${{steps.release-version.outputs.result}}" > CHANGELOG.md
+          git log --pretty="- %s" >> CHANGELOG.md
+          cat changelog.tmp > CHANGELOG.md
+          rm -rf changelog.tmp
           git add -A
           git commit -m "welcome ${{steps.release-version.outputs.result}} :bookmark:"
       - name: Create Pull Request
