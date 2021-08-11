@@ -1,0 +1,24 @@
+name: Prepare release with a Pull request
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+     
+    runs-on: "ubuntu-latest"
+
+    steps:
+
+      # Checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Get release version
+      - name: get release version from pubspec
+        run: ::set-output name=RELEASE_VERSION::$(echo $(cat pubspec.yaml) | sed -ne 's/[^0-9]*\(\([0-9]\.\)\{0,4\}[0-9][^.]\).*/\1/p')
+        shell: bash
+        id: release-version
+      
+    # Create release branch from release version
+      - name: Create branch release/${{steps.release-version.outputs.RELEASE_VERSION}}
