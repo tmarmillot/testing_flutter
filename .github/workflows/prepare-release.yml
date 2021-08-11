@@ -18,4 +18,4 @@ jobs:
       - name: Create branch release/${{steps.release-version.outputs.RELEASE_VERSION}}
         run: 'git switch -c release//${{steps.release-version.outputs.RELEASE_VERSION}} && git push -u origin release//${{steps.release-version.outputs.RELEASE_VERSION}}'        
       - name: checkout on release branch  
-        uses: actions/checkout@release/${{steps.release-version.outputs.RELEASE_VERSION}}
+        uses: 'git switch release/${{steps.release-version.outputs.RELEASE_VERSION}}'
