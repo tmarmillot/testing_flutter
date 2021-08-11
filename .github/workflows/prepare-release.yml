@@ -25,13 +25,15 @@ jobs:
           git log --pretty="- %s" HEAD $(git describe --abbrev=0 --tags) >> CHANGELOG.md
           cat changelog.tmp >> CHANGELOG.md
           rm -rf changelog.tmp
-          git add -A
-          git commit -m "welcome ${{steps.release-version.outputs.result}} :bookmark:"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
+        id: cpr
         with:
           branch: release/${{steps.release-version.outputs.result}}
           title: '[Release] welcome ${{steps.release-version.outputs.result}} :bookmark:'
+          commit-message: "welcome ${{steps.release-version.outputs.result}} :bookmark:"
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           delete-branch: true
           labels: release
           body: "Don't forget to check the [changelog](https://github.com/tmarmillot/testing_flutter/pull/${{ steps.cpr.outputs.pull-request-number }}/files) :rocket:"
