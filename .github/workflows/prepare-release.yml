@@ -16,6 +16,4 @@ jobs:
         id: release-version
     # Create release branch from release version
       - name: Create branch release/${{steps.release-version.outputs.RELEASE_VERSION}}
-        run: 'git switch -c release//${{steps.release-version.outputs.RELEASE_VERSION}} && git push -u origin release//${{steps.release-version.outputs.RELEASE_VERSION}}'        
-      - name: checkout on release branch  
-        uses: 'git switch release/${{steps.release-version.outputs.RELEASE_VERSION}}'
+        run: 'git switch -c release//${{steps.release-version.outputs.RELEASE_VERSION}} && git push -u origin release//${{steps.release-version.outputs.RELEASE_VERSION}}'
