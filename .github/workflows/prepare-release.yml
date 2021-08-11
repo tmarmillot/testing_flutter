@@ -25,7 +25,7 @@ jobs:
           git log --pretty="- %s" >> CHANGELOG.md
           cat changelog.tmp > CHANGELOG.md
           rm -rf changelog.tmp
-          git add -a
+          git add -A
           git commit -m "welcome ${{steps.release-version.outputs.result}} :bookmark:"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
