@@ -22,7 +22,7 @@ jobs:
           git config user.email 'tmarmillot@users.noreply.github.com'
           cp CHANGELOG.md  changelog.tmp
           echo "# ${{steps.release-version.outputs.result}}" > CHANGELOG.md
-          git log --pretty="- %s" HEAD $(git describe --abbrev=0 --tags)>> CHANGELOG.md
+          git log --pretty="- %s" HEAD $(git describe --abbrev=0 --tags) >> CHANGELOG.md
           cat changelog.tmp >> CHANGELOG.md
           rm -rf changelog.tmp
           git add -A
@@ -33,3 +33,4 @@ jobs:
           branch: release/${{steps.release-version.outputs.result}}
           title: '[Release] welcome ${{steps.release-version.outputs.result}} :bookmark:'
           delete-branch: true
+          labels: release
