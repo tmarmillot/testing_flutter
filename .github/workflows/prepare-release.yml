@@ -34,4 +34,4 @@ jobs:
           title: '[Release] welcome ${{steps.release-version.outputs.result}} :bookmark:'
           delete-branch: true
           labels: release
-          body: "Don't forget to check the [changelog](../CHANGELOG.md) :rocket:"
+          body: "Don't forget to check the [changelog](https://github.com/tmarmillot/testing_flutter/pull/${{ steps.cpr.outputs.pull-request-number }}/files) :rocket:"
