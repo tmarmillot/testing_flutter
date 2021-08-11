@@ -36,4 +36,4 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           delete-branch: true
           labels: release
-          body: "Don't forget to check the [changelog](https://github.com/tmarmillot/testing_flutter/pull/${{ steps.cpr.outputs.pull-request-number }}/files) :rocket:"
+          body: "Don't forget to check the changelog :rocket:"
