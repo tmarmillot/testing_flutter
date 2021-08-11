@@ -12,10 +12,9 @@ jobs:
       # Get release version
       - name: Set foobar to cool
         uses: mikefarah/yq@master
+        id: release-version
         with:
-          cmd: echo "::set-output name=RELEASE_VERSION::$(yq e '.version' pubspec.yaml)' 
-          shell: bash
-          id: release-version
+          cmd: "yq e '.version' pubspec.yaml"
     # Create release branch from release version
-      - name: Create branch release/${{steps.release-version.outputs.RELEASE_VERSION}}
-        run: 'git switch -c release//${{steps.release-version.outputs.RELEASE_VERSION}} && git push -u origin release//${{steps.release-version.outputs.RELEASE_VERSION}}'
+      - name: Create branch release/${{steps.release-version.outputs.result}}
+        run: 'git switch -c release//${{steps.release-version.outputs.result}} && git push -u origin release//${{steps.release-version.outputs.result}}'
