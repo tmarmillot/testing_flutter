@@ -15,14 +15,6 @@ jobs:
         id: release-version
         with:
           cmd: "yq e '.version' pubspec.yaml"
-    # Create release branch from release version
-      - name: remove if exists release/${{steps.release-version.outputs.result}}
-        run: ' git push origin --delete release/${{steps.release-version.outputs.result}}'
-  
-    # Create release branch from release version
-      - name: Create branch release/${{steps.release-version.outputs.result}}
-        run: 'git switch -c release/${{steps.release-version.outputs.result}} && git push -u origin release/${{steps.release-version.outputs.result}}'
-      
       - name: Create commits
         run: |
           git config user.name 'Bernard Release Bot'
