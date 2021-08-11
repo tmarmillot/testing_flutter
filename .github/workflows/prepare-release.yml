@@ -34,3 +34,4 @@ jobs:
           title: '[Release] welcome ${{steps.release-version.outputs.result}} :bookmark:'
           delete-branch: true
           labels: release
+          body: "Don't forget to check the [changelog](../CHANGELOG.md) :rocket:"
