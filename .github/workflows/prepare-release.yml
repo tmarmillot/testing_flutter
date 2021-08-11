@@ -15,15 +15,19 @@ jobs:
         id: release-version
         with:
           cmd: "yq e '.version' pubspec.yaml"
+      - name: Changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: Changelog
       - name: Create commits
         run: |
           git config user.name 'Bernard Release Bot'
           git config user.email 'tmarmillot@users.noreply.github.com'
-          date +%s > new-report.txt
+           ${{ steps.Changelog.outputs.changelog }} >> CHANGELOG.md
           git add -A
-          git commit -m "Add untracked file during workflow"
+          git commit -m "welcome ${{steps.release-version.outputs.result}} :bookmark:"
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
           branch: release/${{steps.release-version.outputs.result}}
           title: '[Release] welcome ${{steps.release-version.outputs.result}} :bookmark:'
+          delete-branch: true
