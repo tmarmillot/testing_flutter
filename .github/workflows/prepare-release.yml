@@ -10,11 +10,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       # Get release version
-      - name: Set foobar to cool
+      - name: Get version to release
         uses: mikefarah/yq@master
         id: release-version
         with:
           cmd: "yq e '.version' pubspec.yaml"
     # Create release branch from release version
       - name: Create branch release/${{steps.release-version.outputs.result}}
-        run: 'git switch -c release//${{steps.release-version.outputs.result}} && git push -u origin release//${{steps.release-version.outputs.result}}'
+        run: 'git switch -c release/${{steps.release-version.outputs.result}} && git push -u origin release/${{steps.release-version.outputs.result}}'
