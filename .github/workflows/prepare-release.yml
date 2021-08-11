@@ -1,7 +1,6 @@
 name: Prepare release with a Pull request
 
-on: 
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   build:
