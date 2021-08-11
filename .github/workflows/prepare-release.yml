@@ -16,6 +16,10 @@ jobs:
         with:
           cmd: "yq e '.version' pubspec.yaml"
     # Create release branch from release version
+      - name: remove if exists release/${{steps.release-version.outputs.result}}
+        run: 'git branch -D release/${{steps.release-version.outputs.result}} && git push -u origin release/${{steps.release-version.outputs.result}}'
+  
+    # Create release branch from release version
       - name: Create branch release/${{steps.release-version.outputs.result}}
         run: 'git switch -c release/${{steps.release-version.outputs.result}} && git push -u origin release/${{steps.release-version.outputs.result}}'
       
