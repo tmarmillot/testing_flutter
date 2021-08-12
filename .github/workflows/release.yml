@@ -7,7 +7,7 @@ on:
     types: [labeled,closed]
 
 jobs:
-  tagging:
+  release:
     if: ${{ github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'release') }}
     runs-on: ubuntu-latest
 
@@ -28,3 +28,18 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         custom_tag: ${{steps.release-version.outputs.result}}
         tag_prefix: ""
+    - name: Create a Release
+      uses: elgohr/Github-Release-Action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      with:
+        args: ${{ steps.tag_version.outputs.changelog }}
+    - name: prepare for next development iteration
+      uses: mikefarah/yq@master
+      id: development-version
+      with:
+        cmd: "yq  eval --null-input '.version = ${{ steps.tag_version.outputs.new_version }}'  pubspec.yaml"
+    - name: commit & push next version
+      uses: EndBug/add-and-commit@v7
+      with:
+        message: 'prepare for next development iteration'
