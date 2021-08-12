@@ -1,4 +1,6 @@
 # 0.2.0
+- fix release
+# 0.2.0
 - fix
 - welcome 0.2.0 :bookmark: (#25)
 - fix(release): testing release
