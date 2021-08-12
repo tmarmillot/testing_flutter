@@ -1,7 +1,7 @@
 name: test
 
 on:
-  pull_request:
+  pull_request_target:
     branches:
       - main
     types: [labeled,closed]
@@ -25,4 +25,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         custom_tag: ${{steps.release-version.outputs.result}}
-        dry_run: true
