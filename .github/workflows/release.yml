@@ -29,9 +29,10 @@ jobs:
         custom_tag: ${{steps.release-version.outputs.result}}
         tag_prefix: ""
     - name: Create a Release
-      uses: marvinpinto/action-automatic-releases@latest
+      uses: ncipollo/release-action@v1
       with:
-        repo_token: "${{ secrets.RELEASE_TOKEN }}"
+        token: "${{ secrets.RELEASE_TOKEN }}"
+        tag: ${{ steps.tag_version.outputs.new_version }}
     - name: prepare for next development iteration
       uses: mikefarah/yq@master
       id: development-version
