@@ -29,16 +29,15 @@ jobs:
         custom_tag: ${{steps.release-version.outputs.result}}
         tag_prefix: ""
     - name: Create a Release
-      uses: elgohr/Github-Release-Action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      uses: marvinpinto/action-automatic-releases@latest
       with:
-        args: "Welcome the new release"
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
     - name: prepare for next development iteration
       uses: mikefarah/yq@master
       id: development-version
       with:
-        cmd: "yq  eval --null-input '.version = ${{ steps.tag_version.outputs.new_version }}'  pubspec.yaml"
+        cmd: "yq  eval '.version = ${{ steps.tag_version.outputs.new_version }}'  pubspec.yaml"
     - name: commit & push next version
       uses: EndBug/add-and-commit@v7
       with:
