@@ -33,7 +33,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       with:
-        args: ${{ steps.tag_version.outputs.changelog }}
+        args: "Welcome the new release"
     - name: prepare for next development iteration
       uses: mikefarah/yq@master
       id: development-version
