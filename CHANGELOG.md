@@ -1,4 +1,61 @@
 # 0.1.0
+- release
+- welcome 0.1.0 :bookmark: (#18)
+- welcome 0.1.0 :bookmark: (#17)
+- fix
+- welcome 0.1.0 :bookmark: (#16)
+- testing release
+- fetch 0
+- fix
+- changelog reset
+- fix
+- fix
+- fix
+- fix
+- fix
+- feat fix
+- welcome 0.1.0 :bookmark: (#8)
+- fix me
+- fix release
+- fix
+- fix
+- testing changelog :)
+- test changelog
+- fix
+- welcome 0.1.0 :bookmark: (#7)
+- Add untracked file during workflow
+- fix
+- fix
+- fi
+- fix
+- fix
+- fix
+- fix
+- fix
+- fix
+- test
+- fix
+- fix
+- fix
+- fix
+- fix
+- push
+- branch
+- fix
+- fix
+- fix
+- fix
+- fix
+- fix
+- ok
+- try
+- a try
+- fix
+- push
+- fix
+- init test
+- Initial commit
+# 0.1.0
 - welcome 0.1.0 :bookmark: (#17)
 - fix
 - welcome 0.1.0 :bookmark: (#16)
