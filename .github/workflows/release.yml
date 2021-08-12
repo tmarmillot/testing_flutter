@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v2
           # Get release version
     - name: debug 
-      run: 
+      run: ${{ github.event.label.name == 'label_name' }}
     - name: Get version to release
       uses: mikefarah/yq@master
       id: release-version
