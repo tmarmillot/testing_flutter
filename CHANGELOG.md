@@ -1,3 +1,5 @@
+# 2.0.0
+- perf(pencil): remove graphiteWidth option
 # 1.1.0
 - feat(partner): add new partner integration
 # 1.0.1
