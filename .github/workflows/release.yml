@@ -7,37 +7,84 @@ on:
     types: [labeled,closed]
 
 jobs:
-  release:
-    if: ${{ github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'release') }}
+  tagging:
     runs-on: ubuntu-latest
-
+    name: Create a GitHub release
     steps:
-    - uses: actions/checkout@v2
-    - name: Get version to release
-      uses: mikefarah/yq@master
-      id: release-version
+     - uses: actions/create-release@v1
+       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       with:
+        tag_name: ${{ steps.tag_version.outputs.new_tag }}
+        release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+        body: ${{ steps.tag_version.outputs.changelog }}
+  generate-changelog:
+    name: Generate changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest published release tag
+        id: get_latest_release
+        uses: pozetroninc/github-action-get-latest-release@v0.5.0
+        with:
+          repository: ${{ github.repository }}
+          excludes: prerelease, draft
+      - name: Generate changelog since last published release
+        uses: charmixer/auto-changelog-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          future_release: ${{ github.ref }}
+          since_tag: ${{ steps.get_latest_release.outputs.release }}
+      - name: Upload changelog
+        uses: actions/upload-artifact@v2
+        with:
+          name: changelog
+          path: CHANGELOG.md
+
+
+  draft-release:
+    name: Draft Github release
+    needs: generate-changelog
+    runs-on: ubuntu-20.04
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+    - name: Download changelog
+      uses: actions/download-artifact@v2
       with:
-        cmd: "yq e '.version' pubspec.yaml"
-    - name: Bump version and push tag
-      id: tag_version
-      uses: mathieudutour/github-tag-action@v5.6
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        tag_prefix: ""
-    - name: Create a GitHub release
+        name: changelog
+    - name: Draft release with changelog
+      id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.tag_version.outputs.new_tag }}
-        release_name: Release ${{ steps.tag_version.outputs.new_tag }}
-        body: ${{ steps.tag_version.outputs.changelog }}
-    - name: prepare for next development iteration
-      uses: mikefarah/yq@master
-      id: development-version
-      with:
-        cmd: "yq -i e '.version = \"${{ steps.tag_version.outputs.new_version }}\"' pubspec.yaml"
-    - name: "version: ${{ steps.tag_version.outputs.new_version }}"
-      uses: EndBug/add-and-commit@v7
-      with:
-        message: 'prepare for next development iteration'
+        tag_name: ${{ github.ref }}
+        release_name: Flutter Gallery ${{ github.ref }}
+        body_path: CHANGELOG.md
+        draft: true
+        prerelease: false
+
+  # release:
+  #   if: ${{ github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'release') }}
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Create a GitHub release
+  #     uses: actions/create-release@v1
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     with:
+  #       tag_name: ${{ steps.tag_version.outputs.new_tag }}
+  #       release_name: Release ${{ steps.tag_version.outputs.new_tag }}
+  #       body: ${{ steps.tag_version.outputs.changelog }}
+  #   - name: prepare for next development iteration
+  #     uses: mikefarah/yq@master
+  #     id: development-version
+  #     with:
+  #       cmd: "yq -i e '.version = \"${{ steps.tag_version.outputs.new_version }}\"' pubspec.yaml"
+  #   - name: "version: ${{ steps.tag_version.outputs.new_version }}"
+  #     uses: EndBug/add-and-commit@v7
+  #     with:
+  #       message: 'welcome :) !'
+  #       branch: main
