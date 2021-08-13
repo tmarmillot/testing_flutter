@@ -17,6 +17,28 @@ jobs:
         id: release-version
         with:
           cmd: "yq e '.version' pubspec.yaml"
+      - name: 'Determine default bump'
+        id: 'bump'
+        run: |
+          INIT_VERSION=${{steps.release-version.outputs.result}}
+          if [ "$INIT_VERSION" = "0.0.0" ]; then
+              echo "::set-output name=type::major"
+          else
+              echo "::set-output name=type::patch"
+          fi
+      - name: Bump version and push tag
+        id: next_version
+        uses: mathieudutour/github-tag-action@v5.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_prefix: ""
+          dry_run: true
+          default_bump: '${{ steps.bump.outputs.type }}'
+      - name: bump version pubspec 
+        uses: mikefarah/yq@master
+        id: development-version
+        with:
+          cmd: "yq -i e '.version = \"${{ steps.next_version.outputs.new_version }}\"' pubspec.yaml"
       - name: 'Get Previous tag'
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
