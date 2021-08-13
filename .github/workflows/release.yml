@@ -41,3 +41,4 @@ jobs:
       uses: EndBug/add-and-commit@v7
       with:
         message: 'prepare for next development iteration'
+        add: '*'
