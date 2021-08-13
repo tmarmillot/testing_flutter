@@ -1,3 +1,6 @@
+# 0.2.0
+- fix(release): add agument to release
+- fix(partner): fake fix to patch release
 # 0.1.0
 - fix: release bump to reset 0.1.0
 - [Release] welcome 0.1.0 (#33)
