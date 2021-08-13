@@ -1,3 +1,5 @@
+# 1.0.1
+- fix(partner): petit patch
 # 1.0.0
 - reset release to 0.0.0
 - welcome 1.0.0 :bookmark: (#41)
