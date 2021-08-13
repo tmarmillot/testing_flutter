@@ -36,7 +36,7 @@ jobs:
       uses: mikefarah/yq@master
       id: development-version
       with:
-        cmd: "yq  eval '.version = ${{ steps.tag_version.outputs.new_version }}'  pubspec.yaml"
+        cmd: "yq e '.version = ${{ steps.tag_version.outputs.new_version }}' -i  pubspec.yaml"
     - name: commit & push next version
       uses: EndBug/add-and-commit@v7
       with:
