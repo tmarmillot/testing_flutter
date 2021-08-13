@@ -1,3 +1,5 @@
+# 0.3.0
+- fix
 # 0.2.0
 - fix(release): add agument to release
 - fix(partner): fake fix to patch release
