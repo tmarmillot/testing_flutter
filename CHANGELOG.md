@@ -1,3 +1,5 @@
+# 1.1.0
+- feat(partner): add new partner integration
 # 1.0.1
 - fix(partner): petit patch
 # 1.0.0
