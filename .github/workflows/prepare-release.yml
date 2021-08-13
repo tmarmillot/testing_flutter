@@ -17,14 +17,18 @@ jobs:
         id: release-version
         with:
           cmd: "yq e '.version' pubspec.yaml"
-      
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: $(git rev-list --max-parents=0 HEAD) # Initial commit if no tag found
       - name: Create commits
         run: |
           git config user.name 'Bernard Release Bot'
           git config user.email 'tmarmillot@users.noreply.github.com'
           cp CHANGELOG.md  changelog.tmp
           echo "# ${{steps.release-version.outputs.result}}" > CHANGELOG.md
-          git log --pretty="- %s" HEAD...$(git describe --abbrev=0 --tags) HEAD >> CHANGELOG.md
+          git log --pretty="- %s" HEAD...${{ steps.previoustag.outputs.tag }} HEAD >> CHANGELOG.md
           cat changelog.tmp >> CHANGELOG.md
           rm -rf changelog.tmp
       - name: Create Pull Request
