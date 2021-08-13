@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # 1.0.0
 - fix(release): there a problem with the changelog
 - feat(releae): add sementic release
@@ -288,3 +289,5 @@
 - fix
 - init test
 # 0.1.0
+=======
+>>>>>>> Stashed changes
