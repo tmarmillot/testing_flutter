@@ -49,7 +49,7 @@ jobs:
           git config user.name 'Bernard Release Bot'
           git config user.email 'tmarmillot@users.noreply.github.com'
           cp CHANGELOG.md  changelog.tmp
-          echo "# ${{steps.release-version.outputs.result}}" > CHANGELOG.md
+          echo "# ${{steps.next_version.outputs.new_version}}" > CHANGELOG.md
           git log --pretty="- %s" HEAD...${{ steps.previoustag.outputs.tag }} HEAD >> CHANGELOG.md
           cat changelog.tmp >> CHANGELOG.md
           rm -rf changelog.tmp
