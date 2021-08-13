@@ -1,5 +1,22 @@
 # 0.2.0
 - fix
+- welcome 0.2.0 :bookmark: (#30)
+- fix
+- welcome 0.2.0 :bookmark: (#29)
+- fix
+- fix
+- fix
+- fix
+- welcome 0.2.0 :bookmark: (#28)
+- fix
+- welcome 0.2.0 :bookmark: (#27)
+- fix release
+- welcome 0.2.0 :bookmark: (#26)
+- fix
+- welcome 0.2.0 :bookmark: (#25)
+- fix(release): testing release
+# 0.2.0
+- fix
 # 0.2.0
 - fix
 - fix
