@@ -57,9 +57,9 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         id: cpr
         with:
-          branch: release/${{steps.release-version.outputs.result}}
-          title: '[Release] welcome ${{steps.release-version.outputs.result}}'
-          commit-message: "welcome ${{steps.release-version.outputs.result}} :bookmark:"
+          branch: release/${{steps.next_version.outputs.new_version}}
+          title: '[Release] welcome ${{steps.next_version.outputs.new_version}}'
+          commit-message: "welcome ${{steps.next_version.outputs.new_version}} :bookmark:"
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           delete-branch: true
