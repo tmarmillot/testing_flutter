@@ -23,35 +23,19 @@ jobs:
         id: release-version
         with:
           cmd: "yq e '.version' pubspec.yaml"
-      - name: Get latest published release tag
-        id: get_latest_release
-        uses: pozetroninc/github-action-get-latest-release@v0.5.0
+      - name: Bump version and push tag
+        id: next_version
+        uses: mathieudutour/github-tag-action@v5.6
         with:
-          repository: ${{ github.repository }}
-          excludes: prerelease, draft
-      - name: Generate changelog since last published release
-        uses: charmixer/auto-changelog-action@v1
-        with:
-          token: ${{ secrets.RELEASE_TOKEN }}
-          future_release: ${{steps.release-version.outputs.result}}
-          since_tag: ${{ steps.get_latest_release.outputs.release }}
-      - name: Upload changelog
-        uses: actions/upload-artifact@v2
-        with:
-          name: changelog
-          path: ''
-      - name: Download changelog
-        uses: actions/download-artifact@v2
-        with:
-          name: changelog
+          github_token: ${{ secrets.RELEASE_TOKEN }}
+          custom_tag: ${{steps.release-version.outputs.result}}
       - name: Draft release with changelog
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-          body_path: CHANGELOG.md
-          draft: true
+          draft: false
           prerelease: false   
