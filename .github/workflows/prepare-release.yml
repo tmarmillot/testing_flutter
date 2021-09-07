@@ -2,7 +2,7 @@ name: Prepare release with a Pull request
 on: 
   workflow_dispatch:
     inputs:
-      releaseVersion:
+      release-version:
         description: "release version"
         required: true
 
@@ -17,7 +17,7 @@ jobs:
         uses: mikefarah/yq@master
         id: development-version
         with:
-          cmd: "yq -i e '.version = \"${{ INPUT_RELEASEVERSION }}\"' pubspec.yaml"
+          cmd: "yq -i e '.version = \"${{ inputs.release-version }}\"' pubspec.yaml"
       - name: 'Get Previous tag'
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
@@ -36,9 +36,9 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         id: cpr
         with:
-          branch: release/${{INPUT_RELEASEVERSION}}
-          title: '[Release] welcome ${{ INPUT_RELEASEVERSION }}'
-          commit-message: "welcome ${{ INPUT_RELEASEVERSION }} :bookmark:"
+          branch: release/${{ inputs.release-version }}
+          title: '[Release] welcome ${{  inputs.release-version  }}'
+          commit-message: "welcome ${{  inputs.release-version  }} :bookmark:"
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           delete-branch: true
