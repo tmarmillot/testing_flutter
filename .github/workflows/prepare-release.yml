@@ -13,6 +13,8 @@ jobs:
       # Checkout
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
       - name: bump version pubspec 
         uses: mikefarah/yq@master
         id: development-version
