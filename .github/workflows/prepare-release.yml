@@ -17,7 +17,7 @@ jobs:
         uses: mikefarah/yq@master
         id: development-version
         with:
-          cmd: "yq -i e '.version = \"${{ inputs.release-version }}\"' pubspec.yaml"
+          cmd: "yq -i e '.version = \"${{ github.event.inputs.release-version }}\"' pubspec.yaml"
       - name: 'Get Previous tag'
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
@@ -36,9 +36,9 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         id: cpr
         with:
-          branch: release/${{ inputs.release-version }}
-          title: '[Release] welcome ${{  inputs.release-version  }}'
-          commit-message: "welcome ${{  inputs.release-version  }} :bookmark:"
+          branch: release/${{ github.event.inputs.release-version }}
+          title: '[Release] welcome ${{ github.event.inputs.release-version  }}'
+          commit-message: "welcome ${{ github.event.inputs.release-version  }} :bookmark:"
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           delete-branch: true
