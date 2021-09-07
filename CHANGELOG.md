@@ -1,3 +1,4 @@
+# 
 # 2.0.0
 - perf(pencil): remove graphiteWidth option
 # 1.1.0
