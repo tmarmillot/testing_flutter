@@ -1,3 +1,6 @@
+# 7.1.0
+- fix fetch git
+- fix prepare release
 # 
 # 2.0.0
 - perf(pencil): remove graphiteWidth option
