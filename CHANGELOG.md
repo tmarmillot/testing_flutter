@@ -1,3 +1,7 @@
+# 7.3.0
+- welcome 7.1.0 :bookmark: (#48)
+- fix fetch git
+- fix prepare release
 # 7.1.0
 - fix fetch git
 - fix prepare release
